@@ -117,9 +117,13 @@ In this project, you will demonstrate your mastery of these skills by creating *
 Be prepared to demonstrate your understanding of this week's concepts by answering questions on the following topics. Add your answers below.
 
 1. Explain what a token is used for.
+    - A token is a form of an authentication that allows access to the API. It is received after a user has successfully been authenticated and authorized themselves afterwards these tokens are treated as credentials upon calling the API.
 
 2. What steps can you take in your web apps to keep your data secure?
+    - Secure against HTTP authentication, DDoS attack, Cross-Site Scripting, Cross-Site Request forgery, broken authentication, libraries and components, and adding ene-to-end Encryption.
 
 3. Describe how web servers work.
+    - A web server connects to the Internet and supports physical data interchange with other devices connected to the web.
 
 4. Which HTTP methods can be mapped to the CRUD acronym that we use when interfacing with APIs/Servers.
+    - POST, GET, PUT, PATCH, and DELETE. These correspond to create, read, update, and delete (or CRUD) operations.
