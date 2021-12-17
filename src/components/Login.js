@@ -1,12 +1,63 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom'
+import axios from 'axios';
+
+const initialValues = {
+    credentials: {
+        username: '',
+        password: ''
+    }
+}
 
 const Login = () => {
-    
+    const [values, setValues] = useState(initialValues);
+    const [errors, setErrors] = useState(false)
+    const { push } = useHistory();
+
+    const handleChanges = (evt) => {
+        setValues({
+            ...values,
+            [evt.target.name]: evt.target.value
+        })
+    }
+
+    const handleSubmit = (evt) => {
+        evt.preventDefault();
+        axios.post('http://localhost:5000/api/login', values)
+            .then(response => {
+                localStorage.setItem('token', response.data.token);
+                // localStorage.setItem('username', response.data.username)
+                // localStorage.setItem('password', response.data.password)
+                push('/view')
+            })
+            .catch(setErrors(true));
+    }
+
     return(<ComponentContainer>
         <ModalContainer>
             <h1>Welcome to Blogger Pro</h1>
             <h2>Please enter your account information.</h2>
+
+            <form onSubmit={handleSubmit}>
+              <label htmlFor='username'>Username: </label>
+                <input 
+                    id='username' 
+                    name='username' 
+                    value={values.username} 
+                    onChange={handleChanges}/>
+              <label htmlFor='password'>Password: </label>
+                <input 
+                    id='password' 
+                    name='password' 
+                    type='password' 
+                    value={values.password} 
+                    onChange={handleChanges}/>
+                <button id="submit">Submit</button>
+            </form>
+            {errors && (
+                <p id ="error">Login Error! Please try again!</p>
+            )}
         </ModalContainer>
     </ComponentContainer>);
 }
