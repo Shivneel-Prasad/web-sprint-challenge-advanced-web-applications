@@ -10,7 +10,6 @@ const View = (props) => {
     const [articles, setArticles] = useState([]);
     const [editing, setEditing] = useState(false);
     const [editId, setEditId] = useState();
-    const { push } = useHistory();
 
     useEffect(() => {
         axiosWithAuth().get(`http://localhost:5000/api/articles`)
@@ -26,7 +25,6 @@ const View = (props) => {
         axiosWithAuth().delete(`http://localhost:5000/api/articles/${id}`)
             .then(resp => {
                 setArticles(resp.data)
-                push('/articles')
             })
             .catch(error => {
                 console.log(error);
@@ -47,7 +45,6 @@ const View = (props) => {
     const handleEditSelect = (id)=> {
         setEditing(true);
         setEditId(id);
-        push(`/articles/${id}`)
     }
 
     const handleEditCancel = ()=>{

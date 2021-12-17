@@ -5,32 +5,32 @@ import axios from 'axios';
 
 const initialValues = {
     credentials: {
-        username: '',
+        username: '', 
         password: ''
     }
 }
 
 const Login = () => {
     const [values, setValues] = useState(initialValues);
-    const [errors, setErrors] = useState(false)
+    const [error, setError] = useState(false)
     const { push } = useHistory();
 
-    const handleChanges = (evt) => {
+    const handleChanges = (e) => {
         setValues({
             ...values,
-            [evt.target.name]: evt.target.value
+            [e.target.name]: e.target.value
         })
     }
 
-    const handleSubmit = (evt) => {
-        evt.preventDefault();
+    const handleSubmit = (e) => {
+        e.preventDefault();
         axios.post('http://localhost:5000/api/login', values)
             .then(resp => {
                 localStorage.setItem('token', resp.data.token);
                 push('/view')
             })
             .catch(err => {
-                setErrors(err.response.data.errors)
+                setError(err.response.data.error)
             });
     };
 
@@ -61,7 +61,7 @@ const Login = () => {
                 <br />
                 <button id="submit">Login</button>
             </form>
-            {errors && (
+            {error && (
                 <p id ="error">Login Error! Please try again!</p>
             )}
         </ModalContainer>
