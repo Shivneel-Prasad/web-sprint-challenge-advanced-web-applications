@@ -27,8 +27,6 @@ const Login = () => {
         axios.post('http://localhost:5000/api/login', values)
             .then(response => {
                 localStorage.setItem('token', response.data.token);
-                // localStorage.setItem('username', response.data.username)
-                // localStorage.setItem('password', response.data.password)
                 push('/view')
             })
             .catch(setErrors(true));
@@ -45,14 +43,18 @@ const Login = () => {
                     id='username' 
                     name='username' 
                     value={values.username} 
-                    onChange={handleChanges}/>
+                    onChange={handleChanges}
+                    placeholder='Please enter username'
+                />
               <label htmlFor='password'>Password: </label>
                 <input 
                     id='password' 
                     name='password' 
                     type='password' 
                     value={values.password} 
-                    onChange={handleChanges}/>
+                    onChange={handleChanges}
+                    placeholder='Please enter password'
+                />
                 <button id="submit">Submit</button>
             </form>
             {errors && (
