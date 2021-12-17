@@ -29,25 +29,24 @@ const EditForm = (props)=> {
             .then(resp => {
                 console.log(resp);
             })
-            .catch(error => {
-                console.log(error);
+            .catch(err => {
+                console.log(err);
             })
     }
 
-    const handleCancel = (e) => { 
+    const handleCancel = (e) => {
         e.preventDefault();
         handleEditCancel();
     }
 
-    // it gets data for the article we are editing
     useEffect(() => {
         axios.get(`http://localhost:5000/api/articles/${editId}`)
             .then(res => {
                 setArticle(res.data)
-                history.pushState(`/article/${editId}`)
+                history.push(`/article/${editId}`)
             })
-            .catch(error => {
-                console.log(error);
+            .catch(err => {
+                console.log(err);
             })
     }, []);
 

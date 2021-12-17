@@ -25,12 +25,14 @@ const Login = () => {
     const handleSubmit = (evt) => {
         evt.preventDefault();
         axios.post('http://localhost:5000/api/login', values)
-            .then(response => {
-                localStorage.setItem('token', response.data.token);
+            .then(resp => {
+                localStorage.setItem('token', resp.data.token);
                 push('/view')
             })
-            .catch(setErrors(true));
-    }
+            .catch(err => {
+                setErrors(err.response.data.errors)
+            });
+    };
 
     return(<ComponentContainer>
         <ModalContainer>
@@ -41,10 +43,11 @@ const Login = () => {
               <label htmlFor='username'>Username: </label>
                 <input 
                     id='username' 
+                    type='text'
                     name='username' 
                     value={values.username} 
                     onChange={handleChanges}
-                    placeholder='Please enter username'
+                    placeholder='Enter username'
                 />
               <label htmlFor='password'>Password: </label>
                 <input 
@@ -53,9 +56,10 @@ const Login = () => {
                     type='password' 
                     value={values.password} 
                     onChange={handleChanges}
-                    placeholder='Please enter password'
+                    placeholder='Enter password'
                 />
-                <button id="submit">Submit</button>
+                <br />
+                <button id="submit">Login</button>
             </form>
             {errors && (
                 <p id ="error">Login Error! Please try again!</p>
